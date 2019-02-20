@@ -9,6 +9,7 @@ selenium = "*"
 scrapy = "*"
 pandas = "*"
 jupyter = "*"
+multiprocess = "*"
 
 [dev-packages]
 
