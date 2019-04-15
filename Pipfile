@@ -12,6 +12,9 @@ jupyter = "*"
 multiprocess = "*"
 sklearn = "*"
 wordcloud = "*"
+matplotlib = "*"
+nltk = "*"
+gensim = "*"
 
 [dev-packages]
 
