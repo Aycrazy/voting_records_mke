@@ -10,6 +10,9 @@ scrapy = "*"
 pandas = "*"
 jupyter = "*"
 multiprocess = "*"
+matplotlib = "*"
+nltk = "*"
+gensim = "*"
 
 [dev-packages]
 
