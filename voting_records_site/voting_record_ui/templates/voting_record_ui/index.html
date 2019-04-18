@@ -1,7 +1,7 @@
 {% if latest_file_list %}
     <ul>
     {% for f in latest_file_list %}
-        <li><a href="{% url 'detail' f.id %}">{{f.title}}</a></li>
+        <li><a href="{% url 'detail' f.file_number %}">{{f.title}}</a></li>
     {% endfor %}
     </ul>
 {% else %}

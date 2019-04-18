@@ -1,8 +1,0 @@
-<!-- {{ file_number }} -->
-
-<h1>{{ file_record.file_number }}</h1>
-<ul>
-{% for choice in file_record.choice_set.all %}
-    <li>{{ choice.choice_text}}</li>
-{% endfor %}
-</ul>

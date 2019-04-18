@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'voting_records_site.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'voting_record_ui',
+        'USER': 'ayaspan',
+        'PASSWORD':'testStuff!',
+        'HOST':'localhost',
+        'PORT':'5432',
         #'NAME': os.path(BASE_DIR, 'vr_ords.db')
     }
 }
