@@ -1,9 +1,10 @@
 {% if latest_file_list %}
     <ul>
     {% for f in latest_file_list %}
-        <li><a href="{% url 'detail' f.file_number %}">{{f.title}}</a></li>
+        <li><a href="{% url 'voting_record_ui:detail' f.file_number %}">{{ f.title }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
     <p> No polls are available.</p>
 {% endif %}
+
