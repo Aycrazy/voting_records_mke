@@ -1,0 +1,7 @@
+{#<form action="{% url 'voting_record_ui:votes' file_record.file_number %}" >
+    {% csrf_token %}
+
+    <input type="radio" name="choice" id="choice{{forloop.counter}}" value="{{choice.file_number}}">
+    <label for="choice{{ forloop.counter }}">{{ file_record.title}}</label><br>
+    <input type="submit" value="Votes">
+</form> #}

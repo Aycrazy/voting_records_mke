@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
+from .forms import UserInput
 from .models import PassedLegislation, MetaTable, votes
 
 # Create your views here.
@@ -18,17 +19,46 @@ from .models import PassedLegislation, MetaTable, votes
 #         #return HttpResponse(template.render(context, request))
 #     return render(request, 'voting_record_ui:index.html', context)
 
-def detail(request, file_number):
+
+
+
+def search_votes(request):
+    '''
+    search news form page
+    '''
+
+    if request.method == 'POST':
+
+        form = UserInput(request.POST)
+        print(form.data)
+        #alder = form.data['alder'].upper_name()
+
+        if form.is_valid():
+            HttpResponse('Thank you we are processing your request')
+    else:
+        form = UserInput()
+    return render(request, 'voting_record_ui/search.html', {'form':form})
+
+
+def detail(request):
 
     # try:
-    #     file_record = MetaTable.objects.get(file_number = file_number)
+    #     file_record = MetaTable.objects.sget(file_number = file_number)
     # except MetaTable.DoesNotExist:
     #     raise Http404("File number does nto exist")
 
-    file_record = get_object_or_404(MetaTable, file_number = file_number)
+    #file_record = get_object_or_404(MetaTable, file_number = file_number)
+    form = UserInput(request.POST)
+    alder =  form.data['alder'].upper()
+    print(alder)
+    vote_records = votes.objects.filter(person=alder)
+    for v in vote_records:
+        print(v.vote)
+    file_metas = [(MetaTable.objects.get(file_number=f.file_number), f.vote) for f in vote_records]
+    print(file_metas)
     #print(file_record, file_record.file_number)
-    return render(request, 'voting_record_ui/detail.html', {'file_record': file_record})
-
+    #return render(request, 'voting_record_ui/detail.html', {'file_record': file_record,})
+    return render(request, 'voting_record_ui/detail.html', {'vote_records': vote_records, 'file_metas':file_metas, 'alder':alder})
     #return HttpResponse("You're looking at file number %s." % file_number)
 
 # def results(request, file_number):
@@ -40,7 +70,7 @@ def get_votes(request, file_number):
     
     #print(file_record, 'HI LINE 48')
     try:
-        selected_choice = votes.objects.filter( file_number=file_number)
+        selected_choice = PassedLegislation.objects.filter( file_number=file_number)
         file_record = get_object_or_404(MetaTable, file_number=file_number)
         print(file_number)
         return render(request, 'voting_record_ui/results.html', {'file_title':file_record.title, 'selected_choice': selected_choice})

@@ -7,14 +7,25 @@
 {% endfor %}
 </ul> -->
 
-<h1>{{ file_record.file_number }}</h1>
+<h1>{{ alder }}</h1>
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<table>
+    <tr>
+        <th>'Ordinance Description'</th>
+        <th>'Vote'</td>
+    </tr>
+{% if file_metas %}
+    {% for f1,f2 in file_metas %}
+    <tr>
+        
+        <td><a href="{% url 'voting_record_ui:votes' f1.file_number %}">{{ f1.title }}</a></td>
+        <td>{{ f2 }}</td>
+        
+    </tr>
+    {% endfor %}
+{% else %}
+    <p> No votes are available.</p>
+{% endif %}
+</table>
 
-<form action="{% url 'voting_record_ui:votes' file_record.file_number %}" >
-    {% csrf_token %}
-
-    <input type="radio" name="choice" id="choice{{forloop.counter}}" value="{{choice.file_number}}">
-    <label for="choice{{ forloop.counter }}">{{ file_record.title}}</label><br>
-    <input type="submit" value="Votes">
-</form>
